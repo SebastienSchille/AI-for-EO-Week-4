@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="Images/All_Echos.png" width="500" height="auto"/>
+</p>
+
 # Project Context
 
 This section covers unsupervised learning with a practical focus, avoiding deep theoretical discussions. The emphasis is on applying these methods in EO scenarios, particularly for classification tasks, where they excel at identifying patterns in unlabeled data.
@@ -56,11 +60,9 @@ This project is designed to run seamlessly on Google Colab, a cloud-based platfo
 
 These are the required packages for this project.
 
-```
-pip install rasterio
-pip install netCDF4
-pip install basemap
-pip install cartopy
+```python
+!pip install rasterio
+!pip install netCDF4
 ```
 
 ## Files
@@ -72,6 +74,52 @@ Here are the Sentinel-2 and Sentinel-3 data folders used in this project. These 
 * Sentinel-3 OLCI data: S3B_SR_2_LAN_SI_20190301T231304_20190301T233006_20230405T162425_1021_022_301____LN3_R_NT_005.SEN3-20240226T224839Z-001
 
 # Results
+
+Altimetry-Based Classification
+In this example, Sentinel-3 altimetry data was used to distinguish between sea ice and leads. Since the waveform of backscattered echoes varies based on surface type, the distinct change in surface properties at leads enables their detection using characteristics such as peakiness and stack standard deviation
+
+## GMM Implementation
+Following the approach used in image classification, two components were defined for the Gaussian Mixture Model (GMM). The GMM then classified sea ice and leads into two clusters. The mean and standard deviation of these clusters before alignment are presented below.
+
+<p align="center">
+  <img src="Images/GMM_mean_SD_plot.png" width="500" height="auto"/>
+</p>
+
+The altimetry dataset's echoes and their classifications are shown below, including both true and normalized waveforms: (a) all echoes from the dataset, (b) echoes identified as leads, and (c) echoes identified as sea ice.
+
+<p align="center">
+  <img src="Images/GMM_plot.png" width="1000" height="auto"/>
+</p>
+
+<p align="center">
+  <img src="Images/GMM_Normalised_plot.png" width="1000" height="auto"/>
+</p>
+
+
+## K-Means Implementation
+Following the approach used in image classification, two clusters were defined for K-Means clustering. The algorithm then classified sea ice and leads into these two clusters. The mean and standard deviation of the clusters before alignment are presented below.
+
+<p align="center">
+  <img src="Images/Kmean_mean_SD_plot.png" width="500" height="auto"/>
+</p>
+
+The altimetry dataset's echoes and their classifications are shown below, including both true and normalized waveforms: (a) all echoes from the dataset, (b) echoes identified as leads, and (c) echoes identified as sea ice.
+
+<p align="center">
+  <img src="Images/Kmean_plot.png" width="1000" height="auto"/>
+</p>
+
+<p align="center">
+  <img src="Images/kmean_Normalised_plot.png" width="1000" height="auto"/>
+</p>
+
+## Confusion Matrix
+
+In the ESA dataset, sea ice = 1 and lead = 2. Therefore, we need to subtract 1 from it so our predicted labels are comparable with the official product labels.
+
+<p align="center">
+  <img src="Images/Confusion_matrix.png" width="1000" height="auto"/>
+</p>
 
 # Contact
 
